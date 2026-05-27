@@ -1,0 +1,2100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BetterGit - The Open Source AI Coding Agent</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="logo" onclick="showSection('home')" style="cursor: pointer">
+        <img src="logo.png" alt="gitv" class="logo-img" />
+      </div>
+      <div class="nav-links">
+        <a href="https://github.com/V-Bach/bettergit">GitHub</a>
+        <a href="#" onclick="showSection('docs')">Docs</a>
+        <button class="download-btn-nav" onclick="showSection('download')"> 
+          ↓ Download
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+      <!-- Home Section -->
+      <section id="home-section" class="content-section">
+        <div class="hero">
+          <h1>Git with a Safety Net.</h1>
+          <p class="hero-desc">
+            An intelligent orchestration layer built in
+            Java, designed to make Git human-friendly and error-proof.
+          </p>
+
+          <!-- Terminal Box -->
+          <div class="terminal-container">
+            <div class="tabs" id="terminal-tabs">
+              <span class="tab-btn active" data-target="curl">curl</span>
+              <span class="tab-btn" data-target="npm">npm</span>
+              <span class="tab-btn" data-target="brew">brew</span>
+              <span class="tab-btn" data-target="scoop">scoop</span>
+            </div>
+            <!-- Nơi chứa các dòng lệnh render từ JS -->
+            <div id="command-body" class="command-body"></div>
+          </div>
+        </div>
+
+        <!-- WHAT IS GITV? Section -->
+        <div class="info-section">
+          <h2>WHAT IS GITV?</h2>
+          <p>
+            Gitv is a deterministic Git workflow engine designed to make
+version control safer, clearer, and easier to understand.
+          </p>
+          <br/>
+          <ul class="feature-list">
+            <li>
+              <span class="gray">[GUIDED WORKFLOWS]</span>
+              <strong>Explains what Gitv plans to do before execution.</strong> 
+            </li>
+            <li>
+              <span class="gray">[SAFE EXECUTION]</span>
+              <strong>Risk-aware planning with confirmations for dangerous actions.</strong> 
+            </li>
+            <li>
+              <span class="gray">[EXPLAINABLE DECISIONS]</span>
+              <strong>Shows signals, goals, and reasoning behind every workflow.</strong>
+            </li>
+            <li>
+              <span class="gray">[INTERACTIVE RECOVERY]</span>
+              <strong>Gracefully hands control back during conflicts and rebases.</strong>
+            </li>
+            <li>
+              <span class="gray">[CROSS-PLATFORM DISTRIBUTION]</span>
+              <strong>Native binaries for Windows, macOS, and Linux.</strong>
+            </li>
+          </ul>
+          <br/>
+          <button class="read-docs-btn" onclick="showSection('docs')">
+            Read docs →
+          </button>
+        </div>
+      </section>
+
+
+      <!-- Download page -->
+      <section id="download-section" class="content-section hidden">
+        <div class="download-grid">
+          <div class="dl-category">
+            <h2>BetterGit Download</h2>
+            <div class="terminal-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 12px;">
+              <div class="dl-item">
+                <strong style="color: #a3a3a3; font-size: 0.9rem; display: block; margin-bottom: 6px;">Curl (Linux / macOS)</strong>
+                <div class="code-block" style="background: #111; padding: 10px 12px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; border: 1px solid #222; overflow-x: auto;">
+                  curl -sL https://raw.githubusercontent.com/V-Bach/bettergit/main/install.sh | bash
+                </div>
+              </div>
+
+              <div class="dl-item">
+                <strong style="color: #a3a3a3; font-size: 0.9rem; display: block; margin-bottom: 6px;">NPM (Universal)</strong>
+                <div class="code-block" style="background: #111; padding: 10px 12px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; border: 1px solid #222; overflow-x: auto;">
+                  npm install -g @vuthebach/gitv-cli
+                </div>
+              </div>
+
+              <div class="dl-item">
+                <strong style="color: #a3a3a3; font-size: 0.9rem; display: block; margin-bottom: 6px;">Homebrew (macOS)</strong>
+                <div class="code-block" style="background: #111; padding: 10px 12px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; border: 1px solid #222; overflow-x: auto; white-space: pre-line;">brew tap V-Bach/gitv
+                  brew install gitv
+                </div>
+              </div>
+
+              <div class="dl-item">
+                <strong style="color: #a3a3a3; font-size: 0.9rem; display: block; margin-bottom: 6px;">Scoop (Windows)</strong>
+                <div class="code-block" style="background: #111; padding: 10px 12px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; border: 1px solid #222; overflow-x: auto; white-space: pre-line;">scoop bucket add gitv https://github.com/V-Bach/gitv-bucket.git
+                  scoop install gitv
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+
+      <!-- Docs page -->
+      <section id="docs-section" class="content-section hidden">
+        <div class="docs-layout">
+          <!-- Sidebar with groups and sub-groups --> 
+          <aside class="docs-sidebar">
+            <ul>
+              <li class="docs-group">
+                <div class="group-title" onclick="toggleGroup(this)">
+                  [+] Getting-started
+                </div>
+                <ul class="sub-links">
+                  <li class="active" data-doc="gs-what-is">What is Gitv?</li>
+                  <li data-doc="gs-prerequisites">Prerequisites</li>
+                  <li data-doc="gs-installation">Installation</li>
+                  <li data-doc="gs-quick-start">Quick Start</li>
+                  <li data-doc="gs-first-workflow">First Workflow</li>
+                  <li data-doc="gs-basic-usage">Basic Usage</li>
+                </ul>
+              </li>
+
+              <li class="docs-group">
+                <div class="group-title" onclick="toggleGroup(this)">
+                  [+] Setup
+                </div>
+                <ul class="sub-links">
+                  <li data-doc="setup-local-dev">Local Development</li>
+                  <li data-doc="setup-build-system">Build System</li>
+                  <li data-doc="setup-graalvm">GraalVM</li>
+                  <li data-doc="setup-homebrew-scoop">Homebrew & Scoop</li>
+                  <li data-doc="setup-release-pipeline">Release Pipeline</li>
+                </ul>
+              </li>
+
+              <li class="docs-group">
+                <div class="group-title" onclick="toggleGroup(this)">
+                  [+] Configuration
+                </div>
+                <ul class="sub-links">
+                  <li data-doc="config-overview">Overview</li>
+                  <li data-doc="config-project-structure">Project Structure</li>
+                  <li data-doc="config-precedence-order">Precedence Order</li>
+                  <li data-doc="config-custom-rules">Custom Rules</li>
+                  <li data-doc="config-remotes">Remotes</li>
+                  <li data-doc="config-experimental">Experimental Features</li>
+                </ul>
+              </li>
+
+              <li class="docs-group">
+                <div class="group-title" onclick="toggleGroup(this)">
+                  [+] Architecture
+                </div>
+                <ul class="sub-links">
+                  <li data-doc="arch-execution-modes">Execution Modes</li>
+                  <li data-doc="arch-decision-engine">Decision Engine</li>
+                  <li data-doc="arch-workflow-engine">Workflow Engine</li>
+                  <li data-doc="arch-safety-model">Safety Model</li>
+                  <li data-doc="arch-explain-mode">Explain Mode</li>
+                  <li data-doc="arch-crash-recovery">Crash Recovery</li>
+                </ul>
+              </li>
+
+              <li class="docs-group">
+                <div class="group-title" onclick="toggleGroup(this)">
+                  [+] Contributing
+                </div>
+                <ul class="sub-links">
+                  <li data-doc="contrib-guide">Contributing Guide</li>
+                  <li data-doc="contrib-coding-standards">Coding Standards</li>
+                  <li data-doc="contrib-architecture-rules">
+                    Architecture Rules
+                  </li>
+                  <li data-doc="contrib-adding-rules">Adding Rules</li>
+                  <li data-doc="contrib-testing">Testing</li>
+                </ul>
+              </li>
+
+              <li class="docs-group">
+                <div class="group-title" onclick="toggleGroup(this)">
+                  [+] Troubleshooting
+                </div>
+                <ul class="sub-links">
+                  <li data-doc="ts-faq">FAQ</li>
+                  <li data-doc="ts-install-problems">Install Problems</li>
+                  <li data-doc="ts-failed-execution">Failed Execution</li>
+                  <li data-doc="ts-detached-head">Detached HEAD</li>
+                  <li data-doc="ts-merge-conflicts">Merge Conflicts</li>
+                </ul>
+              </li>
+            </ul>
+          </aside>
+
+
+          <!-- Main content area -->
+          <article class="docs-content">
+            <div id="doc-gs-what-is" class="doc-article">
+              <h1>What is Gitv?</h1>
+              <p>
+                Gitv is a
+                <strong
+                  >context-aware, safe, and automated workflow
+                  orchestrator</strong
+                >
+                for Git. It is designed to act as a co-pilot for your version
+                control, removing the cognitive overhead of standard Git
+                commands while maintaining strict safety guarantees.
+              </p>
+              <p>
+                Unlike simple shell aliases or basic wrappers, Gitv understands
+                the full state of your repository. It analyzes your working
+                directory, staging area, branch status, and remote state to
+                deterministically plan the exact sequence of actions needed to
+                achieve your goal.
+              </p>
+              <hr />
+              <h2>The Problem with Standard Git</h2>
+              <p>
+                Standard Git is incredibly powerful, but it requires you to
+                manually manage state transitions. You must remember to stash,
+                pull, rebase, pop, resolve conflicts, and commit in the exact
+                right order. A single mistake can lead to detached HEADs, lost
+                work, or complex merge conflicts.
+              </p>
+              <hr />
+              <h2>The Gitv Solution</h2>
+              <p>
+                Gitv replaces this manual state management with a
+                <strong>decision engine</strong>. When you ask Gitv to sync your
+                work, it:
+              </p>
+
+              <ol>
+                <li>
+                  <strong>Reads</strong> the repository context (uncommitted
+                  changes, behind/ahead counts, etc.).
+                </li>
+                <li><strong>Plans</strong> a safe sequence of actions.</li>
+                <li>
+                  <strong>Explains</strong> exactly what it intends to do.
+                </li>
+                <li>
+                  <strong>Executes</strong> the plan automatically, with
+                  guardrails in place to stop if something goes wrong.
+                </li>
+              </ol>
+              <hr />
+              <h2>Key Features</h2>
+
+              <ul class="features-bullet-list">
+                <li>
+                  <strong>Workflow-Oriented:</strong> Stop thinking in terms of
+                  <code>fetch</code>, <code>merge</code>, and
+                  <code>rebase</code>. Start thinking in terms of
+                  <code>sync</code>, <code>save</code>, and
+                  <code>publish</code>.
+                </li>
+                <li>
+                  <strong>Explainable:</strong> Gitv will never run a complex
+                  sequence of commands without the ability to explain
+                  <em>why</em> it's running them. Try
+                  <code>gitv go --explain</code>.
+                </li>
+                <li>
+                  <strong>Safe by Default:</strong> Gitv employs a robust safety
+                  model. It will refuse to perform destructive actions
+                  automatically and will guide you safely through error states.
+                </li>
+              </ul>
+            </div>
+
+
+            <div id="doc-gs-prerequisites" class="doc-article hidden">
+              <h1>Prerequisites</h1>
+              <p>
+                Before installing Gitv, ensure your system meets the following
+                requirements. Gitv is designed to be lightweight, but it relies
+                on an underlying Git installation to function.
+              </p>
+              <hr />
+              <h2>Required Software</h2>
+              <ul>
+                <li>
+                  <strong>Git:</strong> Gitv requires a standard Git
+                  installation.
+                  <ul>
+                    <li>
+                      <strong>Minimum Version:</strong> <code>2.28.0</code> or
+                      higher is recommended for full compatibility with all
+                      workflow features.
+                    </li>
+                    <li>Check your version: <code>git --version</code></li>
+                  </ul>
+                </li>
+              </ul>
+              <hr />
+              <h2>Operating System Support</h2>
+              <p>
+                Gitv provides pre-compiled native binaries for the following
+                platforms:
+              </p>
+              <ul>
+                <li>
+                  <strong>macOS:</strong> Intel (<code>x86_64</code>) and Apple
+                  Silicon (<code>arm64</code>)
+                </li>
+                <li>
+                  <strong>Linux:</strong> <code>x86_64</code> and
+                  <code>aarch64</code>
+                </li>
+                <li>
+                  <strong>Windows:</strong> <code>x86_64</code> (Available via
+                  Scoop or manual download)
+                </li>
+              </ul>
+              <hr />
+              <h2>Network Requirements</h2>
+              <p>
+                If you plan to interact with remote repositories (e.g., GitHub,
+                GitLab, Bitbucket), ensure you have standard SSH or HTTPS access
+                configured for Git. Gitv utilizes your existing Git credential
+                manager and SSH keys without requiring separate configuration.
+              </p>
+            </div>
+
+
+            <div id="doc-gs-installation" class="doc-article hidden">
+              <h1>Installation</h1>
+              <p>
+                Gitv provides multiple installation methods depending on your
+                operating system. Choose the one that best fits your
+                environment.
+              </p>
+              <hr />
+              <h2>macOS</h2>
+              <p>The easiest way to install Gitv on macOS is using Homebrew:</p>
+              <div class="code-block-wrapper">
+                <pre><code>brew tap V-Bach/gitv
+brew install gitv</code></pre>
+              </div>
+              <hr />
+              <h2>Windows</h2>
+              <p>For Windows users, we recommend using Scoop:</p>
+              <div class="code-block-wrapper">
+                <pre><code>scoop bucket add gitv https://github.com/V-Bach/gitv-bucket.git
+scoop install gitv</code></pre>
+              </div>
+              <hr />
+              <h2>Linux & Universal Install Script</h2>
+              <p>
+                For Linux, or as a quick install on any Unix-like system, use
+                our universal installation script. This script automatically
+                detects your OS and architecture, downloading the correct native
+                binary.
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>curl -fSsL https://raw.githubusercontent.com/V-Bach/gitv/main/install.sh | bash</code></pre>
+              </div>
+              <hr />
+              <h2>Manual Installation</h2>
+              <p>
+                If you prefer not to use a package manager, you can download the
+                pre-compiled binaries directly from the
+                <a href="https://github.com/V-Bach/gitv/releases">GitHub Releases page</a>.
+              </p>
+              <ol>
+                <li>Download the archive for your system.</li>
+                <li>Extract the binary.</li>
+                <li>
+                  Move it to a directory in your system's
+                  <code>PATH</code> (e.g., <code>/usr/local/bin</code> or
+                  <code>C:\Windows\System32</code>).
+                </li>
+              </ol>
+              <hr />
+              <h2>Verifying the Installation</h2>
+              <p>
+                After installing, verify that Gitv is correctly added to your
+                path by running:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv --version</code></pre>
+              </div>
+            </div>
+
+
+            <div id="doc-gs-quick-start" class="doc-article hidden">
+              <h1>Quick Start</h1>
+              <p>
+                Get up and running with Gitv in minutes. This guide walks you
+                through a standard daily workflow.
+              </p>
+              <hr />
+              <h2>1. Check Your Repository State</h2>
+              <p>
+                Navigate into any existing Git repository and use the
+                <code>status</code> command. This replaces
+                <code>git status</code> with a cleaner, workflow-oriented
+                summary:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>cd my-project
+gitv status</code></pre>
+              </div>
+              <p>
+                <em
+                  >You'll see a clean output showing uncommitted changes, branch
+                  status, and whether you are in sync with your remote.</em
+                >
+              </p>
+              <hr />
+              <h2>2. Explain the Plan</h2>
+              <p>
+                Let's see what Gitv would do if you asked it to automatically
+                advance your workflow. The <code>--explain</code> flag is your
+                best friend:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv go --explain</code></pre>
+              </div>
+              <p>
+                <em>
+                  Gitv will output a human-readable plan. For example, if you
+                  have uncommitted changes and are behind the remote, it will
+                  plan to stash your changes, pull the remote updates, and pop
+                  your stash.
+                </em>
+              </p>
+              <hr />
+              <h2>3. Execute the Workflow</h2>
+              <p>
+                If you agree with the plan, drop the explain flag and let Gitv
+                do the work:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv go</code></pre>
+              </div>
+              <p>
+                <em
+                  >Gitv will execute the planned steps safely. If a conflict
+                  occurs, it will pause and guide you through recovery.</em
+                >
+              </p>
+              <hr />
+              <h2>4. Check System Health</h2>
+              <p>
+                If things ever feel weird, or if Git is stuck in an intermediate
+                state (like a paused rebase), run the doctor command:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv doctor</code></pre>
+              </div>
+              <p>
+                <em
+                  >Gitv will analyze the repository state, detect any issues
+                  (like a detached HEAD), and suggest the commands needed to fix
+                  them.</em
+                >
+              </p>
+            </div>
+
+
+            <div id="doc-gs-first-workflow" class="doc-article hidden">
+              <h1>Your First Workflow with Gitv</h1>
+              <p>
+                Let's walk through a real-world scenario where Gitv shines:
+                syncing your work while your colleagues have pushed changes to
+                the remote.
+              </p>
+              <hr />
+              <h2>The Scenario</h2>
+              <p>
+                You are working on the <code>main</code> branch. You've modified
+                <code>app.js</code> and <code>index.html</code>. Meanwhile, a
+                colleague pushed a critical bug fix to the
+                <code>main</code> remote.
+              </p>
+              <p>In standard Git, your workflow looks like this:</p>
+              <ol>
+                <li><code>git stash</code></li>
+                <li><code>git pull --rebase</code></li>
+                <li><code>git stash pop</code></li>
+                <li>Handle potential stash conflicts.</li>
+              </ol>
+              <p>With Gitv, you simply focus on your goal.</p>
+              <hr />
+              <h2>Step 1: Assess the Situation</h2>
+              <p>Run <code>gitv status</code>:</p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv status</code></pre>
+              </div>
+              <p>
+                Gitv detects that your working tree is <em>dirty</em> and your
+                branch is behind the remote.
+              </p>
+              <hr />
+              <h2>Step 2: Ask for a Plan</h2>
+              <p>Ask Gitv how it intends to handle this:</p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv go --explain</code></pre>
+              </div>
+              <p>Gitv responds:</p>
+              <div class="note-blue">
+                <strong>Workflow Plan:</strong><br />
+                1. Stash uncommitted changes (app.js, index.html)<br />
+                2. Fetch and Rebase against origin/main<br />
+                3. Pop stashed changes
+              </div>
+              <hr />
+              <h2>Step 3: Let Gitv Execute</h2>
+              <p>Run the command to execute the plan:</p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv go</code></pre>
+              </div>
+              <p>
+                <em
+                  >Gitv will seamlessly execute the steps. If no conflicts
+                  occur, you are successfully synced and ready to continue
+                  working.</em
+                >
+              </p>
+              <hr />
+              <h2>What if there's a conflict?</h2>
+              <p>
+                If Step 3 (stash pop) results in a conflict, Gitv's
+                <strong>SafetyValidator</strong> will intervene. It will
+                immediately halt execution, protect your repository state, and
+                output clear instructions on how to resolve the conflict and
+                continue.
+              </p>
+            </div>
+
+
+            <div id="doc-gs-basic-usage" class="doc-article hidden">
+              <h1>Basic Usage</h1>
+              <p>
+                Gitv simplifies standard Git operations into high-level workflow
+                commands. Here are the core commands you'll use daily.
+              </p>
+              <hr />
+              <h2>gitv status</h2>
+              <p>
+                Provides a high-level, human-readable summary of your repository
+                context.
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv status</code></pre>
+              </div>
+              <p><strong>Example Output:</strong></p>
+              <ul>
+                <li>
+                  Branch: <code>main</code> (in sync with
+                  <code>origin/main</code>)
+                </li>
+                <li>Working Tree: 2 files modified</li>
+                <li>Action Required: You have uncommitted work.</li>
+              </ul>
+              <hr />
+              <h2>gitv go</h2>
+              <p>
+                The intelligent workflow advancer. <code>gitv go</code> analyzes
+                your repository state and performs the most logical next steps
+                to sync your work or push your branch.
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code># Preview the actions Gitv will take without running them
+gitv go --explain
+
+# Execute the planned workflow
+gitv go</code></pre>
+              </div>
+              <hr />
+              <h2>gitv sync</h2>
+              <p>
+                Explicitly synchronize your local branch with the remote
+                tracking branch. This safely handles stashing uncommitted
+                changes, pulling, and popping the stash.
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv sync
+
+# To automatically apply the sync plan without asking for confirmation:
+gitv sync --apply</code></pre>
+              </div>
+              <hr />
+              <h2>gitv doctor</h2>
+              <p>
+                Diagnoses and helps resolve sticky repository states, such as
+                unresolved merge conflicts, incomplete cherry-picks, or detached
+                HEADs.
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>gitv doctor</code></pre>
+              </div>
+            </div>
+
+          
+
+            <div id="doc-setup-local-dev" class="doc-article hidden">
+              <h1>Local Development Setup</h1>
+              <p>
+                If you want to build Gitv from source or contribute to the
+                project, follow these steps to set up your local development
+                environment.
+              </p>
+              <hr />
+              <h2>Prerequisites</h2>
+              <p>
+                Gitv is built using <strong>Java</strong> and compiled into
+                native binaries using <strong>GraalVM</strong>.
+              </p>
+              <p>You need to install:</p>
+              <ol>
+                <li>
+                  <strong>JDK 17 or higher:</strong> A standard Java Development
+                  Kit.
+                </li>
+                <li>
+                  <strong>GraalVM:</strong> specifically configured with the
+                  <code>native-image</code> tool for your platform.
+                </li>
+                <li>
+                  <strong>Maven:</strong> The build automation tool used by the
+                  project.
+                </li>
+              </ol>
+              <hr />
+              <h2>Cloning the Repository</h2>
+              <div class="code-block-wrapper">
+                <pre><code>git clone https://github.com/V-Bach/gitv.git
+cd gitv</code></pre>
+              </div>
+              <hr />
+              <h2>Building the Standard JAR</h2>
+              <p>
+                To compile the code, run tests, and build a standard Java JAR
+                file:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>mvn clean install</code></pre>
+              </div>
+              <p>
+                You can run the application directly via Java for rapid testing:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>java -jar target/gitv-1.0-SNAPSHOT.jar status</code></pre>
+              </div>
+              <hr />
+              <h2>Running the Test Suite</h2>
+              <p>
+                Gitv maintains a comprehensive test suite enforcing
+                architectural rules. To run the tests:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>mvn test</code></pre>
+              </div>
+              <p>
+                <em
+                  >Ensure all tests pass before submitting any Pull
+                  Requests.</em
+                >
+              </p>
+            </div>
+
+
+            <div id="doc-setup-build-system" class="doc-article hidden">
+              <h1>The Build System</h1>
+              <p>
+                Gitv uses Maven as its primary build system to manage
+                dependencies, run tests, and orchestrate the creation of
+                artifacts.
+              </p>
+              <hr />
+              <h2>Maven Lifecycle</h2>
+              <p>
+                Our <code>pom.xml</code> defines standard Maven lifecycle
+                phases:
+              </p>
+              <ul>
+                <li>
+                  <code>clean</code>: Removes the
+                  <code>target/</code> directory.
+                </li>
+                <li>
+                  <code>compile</code>: Compiles the core Java source code.
+                </li>
+                <li>
+                  <code>test</code>: Executes unit and integration tests using
+                  JUnit.
+                </li>
+                <li>
+                  <code>package</code>: Packages the compiled code into an
+                  executable JAR file.
+                </li>
+              </ul>
+              <hr />
+              <h2>Key Dependencies</h2>
+              <p>
+                Gitv aims to be lightweight, avoiding bloated frameworks. Key
+                dependencies include:
+              </p>
+              <ul>
+                <li>
+                  <code>picocli:</code> For robust command-line argument
+                  parsing and CLI structure.
+                </li>
+                <li>
+                  <code>slf4j</code> & <code></code>logback</code>: For structured internal
+                  logging.
+                </li>
+                <li><code>junit:</code> For test execution.</li>
+              </ul>
+              <p>
+                <em
+                  >(Note: We specifically avoid large frameworks like Spring to
+                  ensure lightning-fast startup times, which is critical for a
+                  CLI tool).</em
+                >
+              </p>
+              <hr />
+              <h2>Native Compilation Profile</h2>
+              <p>
+                While the standard <code>package</code> phase builds a JAR, we
+                rely on a specific Maven profile to trigger GraalVM compilation.
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>mvn clean package -Pnative</code></pre>
+              </div>
+              <p>
+                This profile executes the GraalVM Native Build Tools plugin to
+                perform Ahead-Of-Time (AOT) compilation, resulting in the
+                standalone native executable.
+              </p>
+            </div>
+
+
+            <div id="doc-setup-graalvm" class="doc-article hidden">
+              <h1>Native Compilation with GraalVM</h1>
+              <p>
+                For a CLI tool, startup time is critical. Waiting for a Java
+                Virtual Machine (JVM) to spin up every time you run
+                <code>gitv status</code> is unacceptable. Therefore, Gitv uses
+                <strong>GraalVM Native Image</strong> to compile the Java application into
+                standalone, platform-specific executables.
+              </p>
+              <hr />
+              <h2>What is GraalVM Native Image?</h2>
+              <p>
+                Native Image is a technology that performs Ahead-Of-Time (AOT)
+                compilation. It analyzes the application, removes unused code,
+                and pre-compiles the remaining Java bytecode into native machine
+                code.
+              </p>
+              <p>The resulting binary:</p>
+              <ul>
+                <li>Requires no JVM installed on the user's machine.</li>
+                <li>Starts up in milliseconds.</li>
+                <li>Has a significantly lower memory footprint.</li>
+              </ul>
+              <hr />
+              <h2>Challenges with Native Compilation</h2>
+              <p>
+                AOT compilation requires knowing all classes at build time.
+                Dynamic Java features like Reflection or dynamic proxies require
+                special configuration for GraalVM to understand them.
+              </p>
+              <p>
+                Because Gitv avoids heavy reflection-based frameworks, our
+                native image configuration is relatively minimal, handled
+                primarily by metadata provided via PicoCLI.
+              </p>
+              <hr />
+              <h2>Building Natively (Local)</h2>
+              <p>
+                To build the native binary on your own machine, you must have
+                GraalVM installed and the <code>native-image</code> tool
+                available in your path.
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code>mvn clean package -Pnative</code></pre>
+              </div>
+              <p>
+                The resulting binary will be located in the
+                <code>target/</code> directory, named <code>gitv</code> (or
+                <code>gitv.exe</code> on Windows).
+              </p>
+            </div>
+
+
+            <div id="doc-setup-homebrew-scoop" class="doc-article hidden">
+              <h1>Package Manager Distribution</h1>
+              <p>
+                Gitv aims for seamless installation across operating systems. We
+                maintain automated distribution through Homebrew (macOS/Linux)
+                and Scoop (Windows).
+              </p>
+              <hr />
+              <h2>Homebrew Tap (macOS/Linux)</h2>
+              <p>Homebrew is the standard package manager for macOS.</p>
+              <p>
+                Instead of adding Gitv to the massive core Homebrew repository
+                immediately, we maintain our own "Tap" (a dedicated repository
+                containing formulas).
+              </p>
+              <ul>
+                <li>
+                  <strong>Tap Repository:</strong>
+                  <code>V-Bach/homebrew-gitv</code> (Conceptual example based on
+                  install instructions)
+                </li>
+                <li>
+                  <strong>Formula:</strong> The <code>gitv.rb</code> Ruby script
+                  defines where to download the binary, verifies the SHA-256
+                  checksum, and places the executable in the system path.
+                </li>
+              </ul>
+              <p>
+                Our GitHub Actions release pipeline automatically generates a
+                new <code>gitv.rb</code> formula and pushes it to the Tap
+                repository whenever a new version is released.
+              </p>  
+              <hr />
+              <h2>Scoop Bucket (Windows)</h2>
+              <p>
+                Scoop is a command-line installer for Windows that avoids
+                permission dialogs and graphical installers.
+              </p>
+              <p>
+                Similar to Homebrew, we maintain a Scoop "Bucket" (a repository
+                of JSON manifests).
+              </p>
+              <ul>
+                <li>
+                  <strong>Manifest:</strong> The <code>gitv.json</code> file
+                  dictates the download URL for the Windows binary, its
+                  checksum, and how to expose it to the PowerShell environment.
+                </li>
+              </ul>
+              <p>
+                The release pipeline updates this JSON manifest automatically on
+                every release.
+              </p>
+            </div>
+
+
+            <div id="doc-setup-release-pipeline" class="doc-article hidden">
+              <h1>Release Pipeline</h1>
+              <p>
+                Gitv uses a fully automated release pipeline powered by GitHub
+                Actions. This ensures consistent, reproducible builds across all
+                target operating systems.
+              </p>
+              <hr />
+              <h2>The GitHub Actions Workflow</h2>
+              <p>
+                When a new Release is tagged in the repository (e.g.,
+                <code>v1.2.0</code>), the
+                <code>.github/workflows/release.yml</code> workflow triggers.
+              </p>
+
+              <h3>Build Matrix</h3>
+              <p>
+                The workflow uses a matrix strategy to concurrently build native
+                binaries for:
+              </p>
+              <ul>
+                <li>Ubuntu (Linux <code>x86_64</code>)</li>
+                <li>
+                  macOS (Intel <code>x86_64</code> and Apple Silicon
+                  <code>arm64</code>)
+                </li>
+                <li>Windows (<code>x86_64</code>)</li>
+              </ul>
+              <hr />
+              <h2>Pipeline Steps</h2>
+              <p>For each platform, the pipeline:</p>
+              <ol>
+                <li>Checks out the code.</li>
+                <li>Sets up the appropriate GraalVM environment.</li>
+                <li>
+                  Executes the Maven native build profile (<code
+                    >mvn package -Pnative</code
+                  >).
+                </li>
+                <li>
+                  Generates cryptographic checksums (SHA-256) for the resulting
+                  binary.
+                </li>
+                <li>
+                  Uploads the binary and checksums as artifacts to the GitHub
+                  Release.
+                </li>
+              </ol>
+              <hr />
+              <h2>Package Manager Updates</h2>
+              <p>
+                Once the binaries are built and attached to the Release, the
+                pipeline triggers downstream jobs to update distribution
+                channels:
+              </p>
+              <ul>
+                <li>
+                  It pushes an update to the Homebrew Tap repository with the
+                  new version and macOS/Linux checksums.
+                </li>
+                <li>
+                  It updates the Scoop bucket manifest with the new Windows
+                  checksum.
+                </li>
+              </ul>
+            </div>
+
+
+
+            <div id="doc-config-overview" class="doc-article hidden">
+              <h1>Configuration Overview</h1>
+              <p>
+                Gitv is designed to work beautifully out-of-the-box with zero configuration. However, as your workflows become more complex, you may want to tune its behavior.
+              </p>
+              <p>
+                Gitv uses a hierarchy of configuration sources to determine its settings. You can configure execution modes, safety limits, custom aliases, and behavior overrides.
+              </p>
+              <hr />
+              <h2>Where is Configuration Stored?</h2>
+              <p>Gitv reads configuration from three primary locations:</p>
+              <ol>
+                <li>
+                  <strong>Global/User Config:</strong> <code>~/.gitvconfig</code> Affects all repositories for the current user.
+                </li>
+                <li>
+                  <strong>Repository Config: </strong> <code>.gitv/config</code> (inside your project directory) Affects only the current repository. Useful for team-specific rules.
+                </li>
+                <li>
+                  <strong>Environment Variables:</strong> <code>GITV_*</code> Useful for CI/CD pipelines and temporary overrides.
+                </li>
+              </ol>
+              <hr />
+              <h2>Configuration Format</h2>
+              <p>
+                Configuration files use a simple TOML-like structure (or standard Git config structure, depending on implementation).
+              </p>
+              <p>
+                <em>
+                  See the <a href="#doc-config-precedence-order" class="doc-internal-link">Precedence Order</a> guide to understand how Gitv resolves conflicts between configuration layers.
+                </em>
+              </p>
+            </div>
+
+
+            <div id="doc-config-project-structure" class="doc-article hidden">
+              <h1>Project Structure Awareness</h1>
+              <p>
+                Gitv is designed to be aware of your project's structure, allowing it to tailor its behavior based on the type of repository you are working in.
+              </p>
+              <hr />
+              <h2>Workspace Detection</h2>
+              <p>
+                Gitv scans the root of your repository to detect common build tools and project layouts:
+              </p>
+              <ul>
+                <li>
+                  <code>package.json</code> (Node.js)
+                </li>
+                <li>
+                  <code>pom.xml</code> / <code>build.gradle</code> (Java)
+                </li>
+                <li>
+                  <code>Cargo.toml</code> (Rust)
+                </li>
+                <li>
+                  <code>go.mod</code> (Go)
+                </li>
+              </ul>
+              <hr />
+              <h2>Intelligent Workflows</h2>
+              <p>
+                When Gitv detects specific project structures, it can adapt its workflows. For example, if configured to do so, it might warn you if you are attempting to publish changes without running the associated linter or test suite for that project type.
+              </p>
+              <hr/>
+              <h2>Configuring Structure Ignorance</h2>
+              <p>
+                If Gitv's project structure awareness is overly aggressive for your specific setup, you can disable it in the configuration:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code># .gitv/config
+[context]
+detect_project_type = false</code></pre>
+              </div>
+              <hr/>
+              <h2>Monorepo Support</h2>
+              <p>
+                Gitv provides beta support for monorepos. By identifying the boundaries of internal packages, Gitv can provide more localized status outputs, reducing noise from untouched modules within a massive repository.
+              </p>
+            </div>
+            
+
+            <div id="doc-config-precedence-order" class="doc-article hidden">
+              <h1>Configuration Precedence Order</h1>
+              <p>
+                When determining which setting to use, Gitv strictly follows a predefined precedence order. If a setting is defined in multiple places, the most specific configuration wins.
+              </p>
+              <hr/>
+              <h2>Order of Evaluation (Highest to Lowest)</h2>
+              <ol>
+                <li>
+                  <strong>Command-Line Flags:</strong> Flags passed directly to the command (e.g., <code>--apply</code>, <code>--explain</code>) always override any saved configuration or environment variables.
+                </li>
+                <li>
+                  <strong>Environment Variables:</strong> Variables prefixed with <code>GITV_</code> (e.g., <code>GITV_EXECUTION_MODE=INTERACTIVE</code>). Primarily used in CI/CD environments.
+                </li>
+                <li>
+                  <strong>Repository-Local Configuration:</strong> Settings defined in <code>.git/gitv-config</code> or <code>.gitv/config</code> within the current project.
+                </li>
+                <li>
+                  <strong>Global/User Configuration:</strong> Settings defined in the user's home directory (e.g., <code>~/.gitvconfig</code>).
+                </li>
+                <li>
+                  <strong>Gitv Default Settings:</strong> The built-in default values defined in Gitv's core architecture.
+                </li>
+              </ol>
+              <hr />
+              <h2>Why This Matters</h2>
+              <p>
+                This strict ordering ensures that:
+              </p>
+              <ul>
+                <li>
+                  You can define safe, global defaults.
+                </li>
+                <li>
+                  A specific project can enforce stricter rules (e.g., enforcing <code>GUARDED</code> execution mode).
+                </li>
+                <li>
+                  You can always override settings temporarily in a terminal using flags or environment variables without altering files.
+                </li>
+              </ul>
+            </div>
+
+
+            <div id="doc-config-custom-rules" class="doc-article hidden">
+              <h1>Custom Rules</h1>
+              <p>
+                Gitv's Decision Engine evaluates a series of rules to determine the workflow plan. While the core rules cover most standard Git workflows, you can define custom rules to handle specialized repository requirements.
+              </p>
+              <hr />
+              <h2>What is a Rule?</h2>
+              <p>
+                A Rule is a logical condition paired with an action. The <strong>RuleAggregator</strong> evaluates rules against the current <code>RepoContext</code>.
+              </p>
+              <hr />
+              <h2>Defining Project-Specific Rules</h2>
+              <p>
+                You can enforce specific behaviors by defining rules in your repository's local configuration.
+              </p>
+
+              <p>
+                For example, to prevent direct pushes to the <code>main</code> branch, ensuring everyone uses Pull Requests:
+              </p>
+              <div class="code-block-wrapper">
+                <pre><code># .gitv/config
+[rules.protect-main]
+condition = "branch == 'main' && action == 'push'"
+enforce = "block"
+message = "Direct pushes to main are not allowed. Please create a feature branch."</code></pre>
+              </div>
+              <hr />
+              <h2>Creating Custom Aliases</h2>
+              <p>
+                You can map specific workflow plans to custom Gitv commands.
+              </p>
+
+              <div class="code-block-wrapper">
+                <pre><code># .gitv/config
+[aliases]
+ship-it = "go --apply --push"
+save-point = "commit -m 'wip: saving state'"</code></pre>
+              </div>
+              <p>
+                <em>
+                  Note: Custom rules are currently considered an experimental feature and the syntax is subject to change.
+                </em>
+              </p>
+            </div>
+
+
+            <div id="doc-config-remotes" class="doc-article hidden">
+              <h1>Remote Configuration</h1>
+              <p>
+                Gitv automatically detects and works with your existing Git remotes. You rarely need to configure remotes specifically for Gitv, but it provides options to handle complex multi-remote setups.
+              </p>
+              <hr />
+              <h2>Default Remote Resolution</h2>
+              <p>
+                When calculating whether your branch is ahead or behind, Gitv's <strong>ContextBuilder</strong> checks:
+              </p>
+              <ol>
+                <li>
+                  The remote tracking branch specifically configured for your current branch.
+                </li>
+                <li>
+                  If none is set, it defaults to <code>origin</code>.
+                </li>
+              </ol>
+              <hr/>
+              <h2>Overriding the Default Remote</h2>
+              <p>
+                If your primary remote is named something other than <code>origin</code> (e.g., <code>upstream</code>), or if you are working in a fork-and-pull workflow, you can tell Gitv which remote is the source of truth for synchronization:
+              </p>
+
+              <div class="code-block-wrapper">
+                <pre><code># .gitv/config
+[sync]
+default_remote = "upstream"</code></pre>
+              </div>
+              <hr />
+              <h2>Handling Multiple Remotes</h2>
+              <p>
+                In open-source workflows where you have an <code>origin</code> (your fork) and an <code>upstream</code> (the main repository), Gitv will detect this pattern. When running <code>gitv sync</code>, it will typically fetch from <code>upstream</code> to keep your branch current, but push to <code>origin</code>.
+              </p>  
+            </div>
+
+
+            <div id="doc-config-experimental" class="doc-article hidden">
+              <h1>Experimental Features</h1>
+              <p>
+                Gitv constantly iterates on new ways to orchestrate workflows safely. We expose these features early as experimental flags so power users can provide feedback before the features become stable.
+              </p>
+              <hr />
+              <h2>Enabling Experimental Features</h2>
+              <p>
+                Experimental features are disabled by default to maintain the strict safety guarantees of Gitv's architecture. You can enable them globally or per-project.
+              </p>
+
+              <div class="code-block-wrapper">
+                <pre><code># .gitv/config
+[experimental]
+monorepo_support = true
+ai_commit_messages = false</code></pre>
+              </div>
+              <hr />
+              <h2>Current Experimental Features</h2>
+              <h3>Monorepo Context (monorepo_support)</h3>
+              <p>
+                Enhances the <code>RepoContext</code> to understand subdirectory boundaries, allowing <code>gitv</code> to operate only on the local module you are currently inside, rather than the entire repository.
+              </p>
+
+              <h3>Auto-Resolution Engine (auto_resolve)</h3>
+              <p>
+                Allows the SafetyValidator to attempt automatic resolution of simple merge conflicts (e.g., whitespace-only conflicts) during a <code>sync</code> operation.
+              </p>
+              <div class="note-blue">
+                <strong>Warning:</strong>Experimental features bypass some standard architectural guardrails. If Gitv crashes while using an experimental feature, please check the <a href="#doc-ts-failed-execution" class="alert-link doc-internal-link">Troubleshooting</a> documentation and report the issue on GitHub.
+              </div>
+            </div>
+
+
+
+            <div id="doc-arch-execution-modes" class="doc-article hidden">
+              <h1>Execution Modes</h1>
+              <p>
+                Gitv supports different execution modes, allowing users to
+                choose their preferred level of automation and interaction. The
+                Execution Engine honors these modes during plan execution.
+              </p>
+              <hr />
+              <h2>The Three Modes</h2>
+              <ol>
+                <li>
+                  <strong>AUTO</strong>
+                  <ul>
+                    <li>Gitv runs the entire plan without prompting.</li>
+                    <li>
+                      It only stops if an unexpected error or conflict occurs.
+                    </li>
+                    <li>
+                      <em
+                        >Best for: Experienced users, CI environments, or
+                        routine syncs.</em
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>GUARDED</strong>
+                  <ul>
+                    <li>
+                      Gitv automatically pauses before any potentially
+                      destructive action (like a rebase or a reset) and asks for
+                      user confirmation.
+                    </li>
+                    <li>
+                      Non-destructive actions (like fetching or stashing)
+                      proceed automatically.
+                    </li>
+                    <li>
+                      <em
+                        >Best for: Day-to-day workflows where users want
+                        oversight.</em
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>INTERACTIVE</strong>
+                  <ul>
+                    <li>
+                      Gitv pauses and prompts for confirmation before every
+                      single step in the plan.
+                    </li>
+                    <li>
+                      <em
+                        >Best for: Beginners, debugging, or complex, unfamiliar
+                        repository states.</em
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+              <hr />
+              <h2>Setting the Execution Mode</h2>
+              <p>
+                Execution modes can be set via configuration or temporarily
+                overridden via CLI flags:
+              </p>
+              <div class="code-block-wrapper">
+              <pre><code>gitv go --mode=interactive</code></pre>
+              </div>
+            </div>
+
+
+            <div id="doc-arch-decision-engine" class="doc-article hidden">
+              <h1>The Decision Engine</h1>
+              <p>
+                The Decision Engine is the heart of Gitv's intelligence. It
+                evaluates the current
+                <code class="language-plaintext">RepoContext</code> and outputs
+                a deterministic plan of action.
+              </p>
+              <hr />
+              <h2>Core Philosophy: No Logic Leakage</h2>
+              <p>
+                The most strict architectural rule in Gitv is:
+                <strong>There is no second Decision Engine.</strong>
+              </p>
+              <ul>
+                <li>
+                  The CLI layer must never contain
+                  <code>if/else</code> logic regarding Git state.
+                </li>
+                <li>
+                  The Execution Engine must remain orchestration-only; it must
+                  never "decide" to run a command that isn't explicitly in the
+                  plan.
+                </li>
+                <li>
+                  The SafetyValidator is a guardrail, it is
+                  <strong>not allowed to think</strong>
+                  or alter the plan, it can only approve or reject.
+                </li>
+              </ul>
+              <hr />
+              <h2>How it Works</h2>
+              <p>
+                The Decision Engine relies on the
+                <strong>RuleAggregator</strong>.
+              </p>
+              <ol>
+                <li>
+                  The Engine receives the
+                  <code>RepoContext</code>.
+                </li>
+                <li>
+                  The
+                  <code>RuleAggregator</code>
+                  iterates through a series of defined workflow rules.
+                </li>
+                <li>
+                  If a rule's condition matches the context, the rule provides
+                  an action step.
+                </li>
+                <li>
+                  The Engine uses the <strong>PlanBuilder</strong> to assemble
+                  these steps logically.
+                </li>
+              </ol>
+              <hr />
+              <h2>Example Reasoning</h2>
+              <p>
+                If the
+                <code>RepoContext</code> shows:
+              </p>
+              <ul>
+                <li>Uncommitted changes (True)</li>
+                <li>Remote tracking branch exists (True)</li>
+                <li>Local is behind Remote (True)</li>
+              </ul>
+              <p>
+                <em>
+                  The Decision Engine reasons: I cannot pull because the working
+                  tree is dirty. I must first stash. Then I can pull via rebase
+                  to maintain a linear history. Finally, I must pop the stash.
+                </em>
+              </p>
+              <p>
+                Resulting Plan: <code>STASH</code> ->
+                <code>FETCH_REBASE</code> ->
+                <code>STASH_POP</code>
+              </p>
+            </div>
+
+
+            <div id="doc-arch-workflow-engine" class="doc-article hidden">
+              <h1>Workflow Engine Architecture</h1>
+              <p>
+                At its core, Gitv is not merely a wrapper around Git commands;
+                it is a deterministic workflow engine. The architecture is
+                designed around the "One Brain" principle: all decisions are
+                made in exactly one place, guaranteeing explainability and
+                consistency.
+              </p>
+              <hr />
+              <h2>The "One Brain" Principle</h2>
+              <p>
+                In standard CLI tools, logic often leaks into the CLI layer or
+                is scattered across multiple service classes. Gitv strictly
+                prohibits this.
+              </p>
+              <p>
+                The <strong>Decision Engine</strong> is the sole source of truth
+                for planning. The CLI commands (like <code>gitv go</code> or
+                <code>gitv sync</code>) do not contain workflow logic; they
+                merely invoke the Decision Engine and pass the resulting plan to
+                the <strong>Execution Engine</strong>.
+              </p>
+              <hr />
+              <h2>High-Level Architecture Flow</h2>
+              <ol>
+                <li>
+                  <strong>SignalLayer:</strong> Reads the raw Git state and
+                  translates it into standardized signals (e.g.,
+                  <code>UNMERGED_PATHS</code>, <code>BEHIND_REMOTE</code>).
+                </li>
+                <li>
+                  <strong>RepoContext:</strong> Builds an immutable snapshot of
+                  the repository state based on the signals.
+                </li>
+                <li>
+                  <strong>DecisionEngine &amp; RulesAggregator:</strong>
+                  Analyzes the
+                  <code>RepoContext</code> and determines the logical next
+                  steps.
+                </li>
+                <li>
+                  <strong>PlanBuilder:</strong> Constructs a deterministic,
+                  ordered list of actions to execute.
+                </li>
+                <li>
+                  <strong>SafetyValidator:</strong> Performs a final check on
+                  the plan to ensure no destructive actions are scheduled
+                  unintentionally.
+                </li>
+                <li>
+                  <strong>ExecutionEngine:</strong> Executes the approved plan,
+                  handling standard output and error states.
+                </li>
+              </ol>
+              <hr />
+              <h2>Why Deterministic Planning?</h2>
+              <p>
+                By strictly separating planning from execution, Gitv guarantees:
+              </p>
+              <ul>
+                <li>
+                  <strong>Explainability:</strong> We can always print the plan
+                  before running it.
+                </li>
+                <li>
+                  <strong>Safety:</strong> The SafetyValidator can catch
+                  dangerous action combinations before any state changes.
+                </li>
+                <li>
+                  <strong>Testability:</strong> We can unit test the Decision
+                  Engine entirely without invoking actual Git processes.
+                </li>
+              </ul>
+            </div>
+
+
+            <div id="doc-arch-safety-model" class="doc-article hidden">
+              <h1>The Safety Model</h1>
+              <p>
+                Gitv is designed to be a "guided co-pilot." It prioritizing
+                repository safety above all else. This safety is enforced by the
+                <strong>SafetyValidator</strong>.
+              </p>
+              <hr />
+              <h2>The Role of the SafetyValidator</h2>
+              <p>
+                The SafetyValidator is a dedicated architectural layer that acts
+                as the final gatekeeper before the
+                <strong>Execution Engine</strong> runs a plan.
+              </p>
+              <p><strong>Crucial Rules:</strong></p>
+              <ul>
+                <li>
+                  The SafetyValidator is <strong>not allowed to think</strong>.
+                  It cannot add, modify, or reorder steps in the plan.
+                </li>
+                <li>
+                  It can only perform read-only checks on the plan against
+                  predefined safety bounds.
+                </li>
+                <li>
+                  If a plan violates a safety rule, the Validator throws a
+                  strict, user-facing error and halts execution.
+                </li>
+              </ul>
+              <hr />
+              <h2>What Does it Protect Against?</h2>
+              <p>The SafetyValidator prevents scenarios like:</p>
+              <ul>
+                <li>
+                  Executing a <code>HARD_RESET</code> if the working directory contains
+                  uncommitted, un-stashed changes.
+                </li>
+                <li>
+                  Attempting a
+                  <code>STASH_POP</code> if a previous rebase step failed.
+                </li>
+                <li>
+                  Force pushing to a protected branch like
+                  <code>main</code>.
+                </li>
+              </ul>
+              <hr />
+              <h2>Safety in Intermediate States</h2>
+              <p>
+                If a Git operation (like a pull or rebase) stops midway due to a
+                conflict, Gitv recognizes this intermediate state. The
+                SafetyValidator will refuse to execute new workflows until the
+                <code>RepoContext</code> indicates the conflict is resolved,
+                preventing users from making a bad situation worse.
+              </p>
+            </div>
+
+
+            <div id="doc-arch-explain-mode" class="doc-article hidden">
+              <h1>Explainability Philosophy</h1>
+              <p>
+                A core tenet of Gitv is that automated tooling must never act as
+                an impenetrable black box. Users must trust the tool, and trust
+                is built on transparency. This is embodied in the
+                <code>--explain flag</code>.
+              </p>
+              <hr />
+              <h2>Why Explain Mode Exists</h2>
+              <p>
+                When standard Git users migrate to automated tools, their
+                primary fear is:
+                <em>"What is this thing going to do to my repository?"</em>.
+              </p>
+              <p>
+                Explain Mode
+                <code>gitv go --explain</code>
+                answers this directly. By separating the planning phase
+                (Decision Engine) from the execution phase, we can print the
+                entire intended workflow without making a single change to the
+                disk.
+              </p>
+              <hr />
+              <h2>Architectural Enforcement</h2>
+              <p>
+                Explainability is not an afterthought; it is enforced by the
+                architecture:
+              </p>
+              <ul>
+                <li>
+                  Because the
+                  <code>PlanBuilder</code> outputs a deterministic data
+                  structure, rendering that structure as text is trivial.
+                </li>
+                <li>
+                  Because there is "no logic leakage" into the Execution Engine,
+                  the printed plan is guaranteed to be exactly what will
+                  execute.
+                </li>
+              </ul>
+              <hr />
+              <h2>Guided Co-Pilot</h2>
+              <p>
+                Explain Mode turns Gitv into an educational tool. Beginners can
+                use <code>--explain</code> to learn the correct sequence of Git
+                commands for complex scenarios, essentially using Gitv as an
+                expert co-pilot.
+              </p>
+            </div>
+
+
+            <div id="doc-arch-crash-recovery" class="doc-article hidden">
+              <h1>Crash Recovery & Idempotency</h1>
+              <p>
+                Gitv is built to handle the chaotic reality of local development
+                environments: processes get killed, laptops run out of battery,
+                and Git commands fail unpredictably.
+              </p>
+              <hr />
+              <h2>The Challenge</h2>
+              <p>
+                If a workflow plan involves three steps (<code>STASH</code>,
+                <code>PULL</code>, <code>POP</code>) and the user <code>Ctrl+C</code> during
+                the <code>PULL</code>, the repository is left in an intermediate
+                state. Running <code>gitv go</code> again shouldn't start from scratch and
+                attempt to stash again.
+              </p>
+              <hr />
+              <h2>State Persistence</h2>
+              <p>
+                Gitv maintains a lightweight persistence layer (typically a
+                JSON-based state file in
+                <code>.gitv/state</code>) that tracks:
+              </p>
+              <ul>
+                <li>The current executing plan.</li>
+                <li>
+                  The status of each step (<code>PENDING</code>,
+                  <code>COMPLETED</code>, <code>FAILED</code>).
+                </li>
+                <li>The <code>HEAD</code> hash at the start of execution.</li>
+              </ul>
+              <hr />
+              <h2>Idempotent Execution</h2>
+              <p>
+                When the <strong>Execution Engine</strong> starts, it checks the
+                state file. If an interrupted plan exists, it attempts to
+                resume:
+              </p>
+              <ol>
+                <li>
+                  It validates the current
+                  <code>RepoContext</code> against the expected state.
+                </li>
+                <li>
+                  It filters out already
+                  <code>COMPLETED</code> steps.
+                </li>
+                <li>
+                  It passes the remaining steps through the
+                  <strong>SafetyValidator</strong>.
+                </li>
+                <li>
+                  If safe, it resumes execution from the exact point of failure.
+                </li>
+              </ol>
+              <p>
+                This ensures that workflows are idempotent; running
+                <code>gitv go</code> repeatedly will safely advance the state
+                without duplicating non-repeatable actions.
+              </p>
+            </div>
+
+
+
+            <div id="doc-contrib-guide" class="doc-article hidden">
+              <h1>Contributing to Gitv</h1>
+              <p>
+                Thank you for your interest in contributing to Gitv! We welcome contributions from the community to help make Gitv the best workflow orchestrator available.
+              </p>
+              <hr />
+              <h2>Getting Started</h2>
+              <ol>
+                <li>
+                  <strong>Fork the Repository:</strong> Start by forking the Gitv repository to your GitHub account.
+                </li>
+                <li>
+                  <strong>Clone Locally:</strong> Clone your fork to your local machine.
+                </li>
+                <li>
+                  <strong>Set Up the Environment:</strong> Follow the <a href="#doc-setup-local-dev" class="alert-link doc-internal-link">Local Development Setup</a> guide to configure your build environment (JDK, Maven/Gradle, GraalVM).
+                </li>
+              </ol>
+              <hr />
+              <h2>Contribution Workflow</h2>
+              <p>
+                We follow a standard Pull Request workflow:
+              </p>
+              <ol>
+                <li>
+                  <strong>Create a Branch:</strong> Create a feature branch from <code>main</code> (e.g., <code>feature/add-new-rule</code>).
+                </li>
+                <li>
+                  <strong>Make Changes:</strong> Implement your feature or bug fix.
+                </li>
+                <li>
+                  <strong>Write Tests:</strong> Ensure your code is covered by unit tests, particularly if altering the <code>DecisionEngine</code> or <code>RepoContext</code> logic.
+                </li>
+                <li>
+                  <strong>Run Verification:</strong> Run the full build and test suite locally.
+                </li>
+                <li>
+                  <strong>Submit a PR:</strong> Open a Pull Request against the upstream <code>main</code> branch. Provide a clear description of the problem and your solution.
+                </li>
+              </ol>
+              <hr />
+              <h2>Review Process</h2>
+              <p>
+                All submissions are reviewed by the core maintainers. Reviews will focus on:
+              </p>
+              <ul>
+                <li>
+                  Adherence to the
+                  <a href="#doc-contrib-architecture-rules" class="alert-link doc-internal-link"
+                    >Architecture Rules</a
+                  >.
+                </li>
+                <li>
+                  Code quality and
+                  <a href="#doc-contrib-coding-standards" class="alert-link doc-internal-link">Coding Standards</a>.
+                </li>
+                <li>Test coverage.</li>
+                <li>Clear and helpful commit messages.</li>
+              </ul>
+              <p>
+                <em
+                  >Please note that architectural purity is heavily guarded in this project. PRs that violate the "One Brain" principle will require refactoring.</em
+                >
+              </p>
+            </div>
+
+            
+            <div id="doc-contrib-coding-standards" class="doc-article hidden">
+              <h1>Coding Standards</h1>
+              <p>
+                To maintain a readable and maintainable codebase, Gitv enforces strict coding standards.
+              </p>
+              <hr />
+              <h2>General Principles</h2>
+              <ul>
+                <li>
+                  <strong>Readability over Cleverness:</strong> Code is read more often than written. Avoid overly terse or "clever" one-liners if a multi-line implementation is clearer.
+                </li>
+                <li>
+                  <strong>Immutability:</strong> Prefer immutable data structures wherever possible, especially within the <code>RepoContext</code> and <code>Plan</code> objects.
+                </li>
+                <li>
+                  <strong>Fail Fast:</strong> If an invariant is broken or an unexpected state occurs, throw an exception immediately. Do not attempt to swallow errors or limp along.
+                </li>
+              </ul>
+              <hr />
+              <h2>Java Guidelines (Assuming Java based on original context)</h2>
+              <ul>
+                <li>
+                  <strong>Formatting:</strong> We use a standard code formatter (e.g., Google Java Format). Ensure your IDE is configured to use it, or run the formatting task before committing.
+                </li>
+                <li>
+                  <strong>Naming Conventions:</strong>
+                  <ul>
+                    <li>Classes and Interfaces: <code>PascalCase</code>.</li>
+                    <li>Methods and Variables: <code>camelCase</code>.</li>
+                    <li>
+                      Constants: <code>UPPER_SNAKE_CASE</code>.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Nullability:</strong> Avoid returning <code>null</code>. Use <code>Optional<T></code> to explicitly indicate that a value may be absent.
+                </li>
+                <li>
+                  <strong>Logging:</strong> Use the SLF4J logging facade. Log contextual information at appropriate levels (<code>DEBUG</code> for tracing, <code>INFO</code> for major lifecycle events, <code>WARN</code> for recoverable issues, <code>ERROR</code> for failures).
+                </li>
+              </ul>
+              <hr />
+              <h2>Documentation</h2>
+              <ul>
+                <li>
+                  <strong>Docstrings:</strong> All public interfaces and significant public methods must have clear Javadoc explaining their purpose, parameters, and return values.
+                </li>
+                <li>
+                  <strong>Inline Comments:</strong> Use inline comments sparingly to explain <em>why</em> complex logic exists, not <em>what</em> it is doing (the code should explain the <em>what</em>).
+                </li>
+              </ul>
+            </div>
+
+
+            <div id="doc-contrib-architecture-rules" class="doc-article hidden">
+              <h1>Architecture Rules</h1>
+              <p>
+                Gitv's stability relies on strict architectural discipline. When contributing, you must adhere to these rules. PRs violating these principles will not be accepted.
+              </p>
+              <hr />
+              <h2>1. The "One Brain" Principle</h2>
+              <p>
+                <strong>There is no second Decision Engine.</strong> All workflow planning logic must reside entirely within the <code>DecisionEngine</code> and <code>RuleAggregator</code>.
+              </p>
+              <ul>
+                <li>
+                  You may NOT add <code>if/else</code> statements regarding Git state in the CLI layer.
+                </li>
+                <li>You may NOT add planning logic in the Execution Engine.</li>
+              </ul>
+              <hr />
+              <h2>2. No Logic Leakage into CLI</h2>
+              <p>
+                The CLI classes (e.g., the commands parsing user input) are extremely thin. They only translate flags into requests for the Decision Engine and pass the resulting plans to the Execution Engine. They must never inspect the <code>RepoContext</code> themselves.
+              </p>
+              <hr />
+              <h2>3.The SafetyValidator Cannot Think</h2>
+              <p>
+                The
+                <code>SafetyValidator</code>is a strict guardrail. It takes a <code>Plan</code> and either returns <code>true</code> or throws an exception.
+              </p>
+              <ul>
+                <li>
+                  It is <strong>not allowed</strong> to add, remove, or reorder steps.
+                </li>
+                <li>
+                  It is <strong>not allowed</strong> to fix a bad plan; it must reject it.
+                </li>
+              </ul>
+              <hr />
+              <h2>4. ExecutionEngine is Orchestration Only</h2>
+              <p>
+                The <code>ExecutionEngine</code> loops through a <code>Plan</code> and executes the steps via <code>GitService</code>. It must never attempt to recover from an error by inventing new steps. If a step fails, the Execution Engine halts and reports the failure.
+              </p>
+              <hr />
+              <h2>5. Context is Immutable</h2>
+              <p>
+                Once the
+                <code>RepoContext</code> is built by the <code>SignalLayer</code> for a given execution run, it is immutable. Do not attempt to update the context mid-flight. If the state changes, a new execution pass must read a fresh context.
+              </p>
+            </div>
+
+
+            <div id="doc-contrib-adding-rules" class="doc-article hidden">
+              <h1>Adding Workflow Rules</h1>
+              <p>
+                The most common way to extend Gitv is by adding new workflow capabilities to the <strong>Decision Engine</strong>. This is done by adding new Rules.
+              </p>
+              <hr />
+              <h2>The Rule Interface</h2>
+              <p>
+                Rules typically implement a standard interface requiring two methods:
+              </p>
+              <ol>
+                <li>
+                  <code>evaluate(RepoContext context)</code> : Returns a boolean indicating if this rule applies.
+                </li>
+                <li>
+                  <code>getAction()</code> : Returns the specific workflow step to append to the plan.
+                </li>
+              </ol>
+              <hr />
+              <h2>Steps to Add a New Rule</h2>
+              <ol>
+                <li>
+                  <strong>Understand the Signal:</strong> Does your rule rely on existing Git state? If so, check the <code>RepoContext</code>. If the state isn't tracked, you must first update the <code>SignalLayer</code> to parse this new state from Git.
+                </li>
+                <li>
+                  <strong>Create the Rule Class:</strong> Implement your rule logic, ensuring it clearly defines the specific conditions under which it triggers.
+                </li>
+                <li>
+                  <strong>Register the Rule:</strong> Add your new rule to the <code>RuleAggregator</code> list. Pay attention to ordering, as rules are evaluated in priority order.
+                </li>
+                <li>
+                  <strong>Write Tests:</strong> This is critical.
+                  <ul>
+                    <li>
+                      Write unit tests mocking the <code>RepoContext</code> to prove your rule triggers exactly when expected.
+                    </li>
+                    <li>
+                      Write negative tests proving it does not trigger in unrelated states.
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+              <hr />
+              <h2>Rule Guidelines</h2>
+              <ul>
+                <li>
+                  <strong>Keep Rules Isolated:</strong> A rule should evaluate context independently. Do not create complex dependencies between rules.
+                </li>
+                <li>
+                  <strong>Predictability:</strong> Ensure your rule's condition doesn't overlap with an existing rule in a way that causes unpredictable planning behavior.
+                </li>
+              </ul>
+            </div>
+
+
+            <div id="doc-contrib-testing" class="doc-article hidden">
+              <h1>Testing Guidelines</h1>
+              <p>
+                Gitv relies on a comprehensive test suite to guarantee its safety and deterministic behavior. All contributions must be accompanied by appropriate tests.
+              </p>
+              <hr />
+              <h2>Unit Testing</h2>
+              <p>
+                Unit tests form the bulk of our test suite. They are fast, isolated, and do not invoke actual Git processes.
+              </p>
+              <ul>
+                <li>
+                  <strong>Decision Engine Tests:</strong> The most crucial tests. You must mock various <code>RepoContext</code> states (e.g., dirty working tree, detached head, ahead of remote) and assert that the <code>PlanBuilder</code> produces the exact expected sequence of steps.
+                </li>
+                <li>
+                  <strong>SafetyValidator Tests:</strong> Pass intentionally dangerous plans (e.g., <code>HARD_RESET</code> with uncommitted changes) to the Validator and assert that it throws the correct exception.
+                </li>
+                <li>
+                  <strong>SignalLayer Tests:</strong> Provide raw Git porcelain output strings to the parser and assert it generates the correct internal signals.
+                </li>
+              </ul>
+              <hr />
+              <h2>Integration Testing</h2>
+              <p>
+                Integration tests verify that Gitv interacts correctly with the actual Git binary.
+              </p>
+              <ul>
+                <li>
+                  <strong>Setup:</strong> Integration tests must create a temporary, isolated Git repository in a temporary directory for every test run.
+                </li>
+                <li>
+                  <strong>Execution:</strong> Run Gitv commands against the temporary repository and assert the resulting filesystem state.
+                </li>
+                <li>
+                  <strong>Cleanup:</strong> Ensure the temporary repositories are deleted after the test, regardless of success or failure.
+                </li>
+              </ul>
+              <hr />
+              <h2>Test Driven Development</h2>
+              <p>
+                When adding features or fixing bugs, we encourage writing the failing test first. If a user reports a bug where Gitv misbehaves in a specific state, write a test that creates that <code>RepoContext</code> state to reproduce the failure before implementing the fix.
+              </p>
+            </div>
+
+
+
+            <div id="doc-ts-faq" class="doc-article hidden">
+              <h1>Frequently Asked Questions</h1>
+
+              <h2>Q: Does Gitv replace Git?</h2>
+              <p>
+                No. Gitv is an orchestrator <em>for</em> Git. It uses the Git installation on your machine to perform all actions. It simplifies the workflow, but underlying Git mechanics remain the same.
+              </p>
+
+              <h2>
+                Q: Can I use Gitv and standard Git commands interchangeably?
+              </h2>
+              <p>
+                Yes. Because Gitv relies on standard Git state (the <code>.git</code> directory), you can use <code>gitv</code> commands and standard <code>git</code> commands side-by-side without issue. If you use standard Git to resolve a conflict, Gitv will recognize the resolution on its next run.
+              </p>
+
+              <h2>Q: Why doesn't Gitv have a GUI?</h2>
+              <p>
+                Gitv is designed to bring safety and explainability to the terminal. We believe that by removing the cognitive load of manual state management, the CLI becomes the fastest and most efficient way to interact with version control.
+              </p>
+
+              <h2>Q: Will Gitv delete my uncommitted work?</h2>
+              <p>
+                No. Gitv's <strong>SafetyValidator</strong> is designed specifically to protect uncommitted work. Operations that modify history or pull remote changes will automatically stash your work first, or refuse to run if stashing isn't safe.
+              </p>
+
+              <h2>Q: How do I uninstall Gitv?</h2>
+              <p>If you used a package manager:</p>
+              <ul>
+                <li>
+                  macOS:
+                  <code class="language-plaintext">brew uninstall gitv</code>
+                </li>
+                <li>
+                  Windows:
+                  <code class="language-plaintext">scoop uninstall gitv</code>. If installed manually or via script, simply delete the <code>gitv</code> executable from your <code>PATH</code>.
+                </li>
+              </ul>
+            </div>
+
+
+            <div id="doc-ts-install-problems" class="doc-article hidden">
+              <h1>Installation Problems</h1>
+              <p>
+                If you are having trouble installing or running Gitv, check these common issues.
+              </p>
+              <hr/>
+              <h2>Gitv is not recognized as a command</h2>
+              <p>
+                <strong>Symptoms:</strong> You receive an error like <code>command not found</code> or <code>'gitv' is not recognized as an internal or external command</code>.
+              </p>
+              <p>
+                <strong>Solution:</strong> The directory containing the Gitv executable is not in your system's <code>PATH</code>.
+              </p>
+              <ul>
+                <li>
+                  <strong>Homebrew/Scoop:</strong> These managers usually handle the PATH automatically. Try restarting your terminal session.
+                </li>
+                <li>
+                  <strong>Manual/Script install:</strong> Ensure you moved the binary to a directory like <code>/usr/local/bin</code> (macOS/Linux) and that this directory is included in your <code>PATH</code> environment variable.
+                </li>
+              </ul>
+              <hr/>
+              <h2>Cannot execute binary file (macOS/Linux)</h2>
+              <p>
+                <strong>Symptoms:</strong> You receive an error like <code>cannot execute binary file: Exec format error</code>.
+              </p>
+              <p>
+                <strong>Solution:</strong> You downloaded a binary compiled for a different system architecture.
+              </p>
+              <ul>
+                <li>
+                  Check if you are on an Intel (<code>x86_64</code>) or Apple Silicon/ARM (<code>arm64</code>/<code>aarch64</code>) machine.
+                </li>
+                <li>
+                  Download the correct binary from the GitHub Releases page, or use the <code>install.sh</code> script which auto-detects your architecture.
+                </li>
+              </ul>
+              <hr/>
+              <h2>Anti-Virus Warnings (Windows)</h2>
+              <p>
+                <strong>Symptoms:</strong> Windows Defender or other AV software blocks the execution of Gitv.
+              </p>
+              <p>
+                <strong>Solution:</strong> Because Gitv modifies files (via Git), some overly aggressive heuristics might flag it. We provide checksums on our GitHub Releases. Verify the binary matches the checksum. If it matches, you may need to add an exception for the executable in your AV software.
+              </p>
+            </div>
+
+
+            <div id="doc-ts-failed-execution" class="doc-article hidden">
+              <h1>Dealing with Failed Executions</h1>
+              <p>
+                Gitv is designed to fail gracefully. If a command crashes or exits unexpectedly, your repository should remain safe.
+              </p>
+              <hr/>
+              <h2>Identifying the Failure</h2>
+              <p>
+                If an automated workflow fails, Gitv will output an error message detailing the failure point.
+              </p>
+              <p>Common causes include:</p>
+              <ul>
+                <li>
+                  Loss of network connectivity during a fetch/push.
+                </li>
+                <li>Insufficient permissions on a remote repository.</li>
+                <li>
+                  A sudden process interruption (e.g., closing the terminal mid-execution).
+                </li>
+              </ul>
+              <hr/>
+              <h2>Step 1: Run Gitv Status</h2>
+              <p>The first thing to do is check the state of your repository:</p>
+              <pre><code>gitv status</code></pre>
+              <p>
+                This will tell you if you are in the middle of an operation (like a paused rebase) or if the repository is clean.
+              </p>
+              <hr/>
+              <h2>Step 2: Use Gitv Doctor</h2>
+              <p>
+                If the state is messy or confusing, use the diagnostic tool:
+              </p>
+              <pre><code>gitv doctor</code></pre>
+              <p>
+                The doctor command analyzes the <code>RepoContext</code> and suggests safe commands to recover from intermediate states.
+              </p>
+              <hr/>
+              <h2>Step 3: Resuming or Aborting</h2>
+              <ul>
+                <li>
+                  <strong>Resuming:</strong> If the failure was transient (e.g., your wifi dropped), simply fix the network and run <code>gitv go</code> again. Gitv's <strong>Crash Recovery</strong> will attempt to resume the plan safely.
+                </li>
+                <li>
+                  <strong>Aborting:</strong> If a git operation is stuck (like an incomplete rebase) and you just want to return to how things were, standard Git abort commands still work perfectly:
+                </li>
+              </ul>
+              <pre><code>git rebase --abort</code></pre>
+              <p>
+                Gitv respects all manual Git interventions.
+              </p>
+            </div>
+  
+
+            <div id="doc-ts-detached-head" class="doc-article hidden">
+              <h1>Escaping a Detached HEAD</h1>
+              <p>
+                A "detached HEAD" state in Git sounds scary, but it simply means you have checked out a specific commit directly rather than a branch name. While useful for inspecting history, it's dangerous for writing new code.
+              </p>
+              <hr/>
+              <h2>How Gitv Helps</h2>
+              <p>
+                If you run
+                <code class="language-plaintext">gitv status</code> or <code>gitv go</code> while in a detached HEAD state, Gitv detects this immediately via the <strong>SignalLayer</strong>.
+              </p>
+              <p>
+                Gitv will <strong>refuse</strong> to perform sync operations or advanced workflows while in this state, as any new commits you create could be easily lost.
+              </p>
+              <hr/>
+              <h2>Fixing the State</h2>
+              <p>
+                To recover, Gitv will advise you to either discard your detached state or save it to a new branch.
+              </p>
+
+              <p><strong>Option 1: Discard the inspection state and return to main</strong></p>
+              <pre><code>git checkout main</code></pre>
+
+              <p>
+                <strong
+                  >Option 2: Save any work you did in the detached state</strong> If you made commits while detached and want to keep them:
+              </p>
+              <pre><code>git checkout -b my-new-recovery-branch</code></pre>
+
+              <p>Once you are back on a named branch, Gitv will resume normal operation. If you are unsure what to do, try running:</p>
+              <pre><code>gitv doctor</code></pre>
+              <p>
+                Gitv will analyze the detached state and provide explicit commands to help you recover.
+              </p>
+            </div>
+
+
+            <div id="doc-ts-merge-conflicts" class="doc-article hidden">
+              <h1>Handling Merge Conflicts</h1>
+              <p>
+                Merge conflicts are an inevitable part of collaborative development. Gitv is designed to help you resolve them safely rather than leaving you stranded in a broken state.
+              </p>
+              <hr />
+              <h2>How Gitv Reacts to Conflicts</h2>
+              <p>
+                When a conflict occurs (e.g., during a <code>gitv sync</code> operation performing a rebase), Gitv's <strong>Execution Engine</strong> immediately halts.
+              </p>
+              <p>It will:</p>
+              <ol>
+                <li>
+                  Stop executing the current plan.
+                </li>
+                <li>
+                  Protect your repository from further automated changes.
+                </li>
+                <li>
+                  Output a clear, beginner-friendly message explaining exactly which files are conflicting.
+                </li>
+              </ol>
+              <hr />
+              <h2>Resolving the Conflict</h2>
+              <p>
+                When Gitv halts due to a conflict, follow these steps:
+              </p>
+              <ol>
+                <li>
+                  <strong>Open your Editor:</strong> Open the conflicting files in your code editor or IDE. Look for standard Git conflict markers (<code class="language-plaintext"
+                    >&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code
+                  >, <code class="language-plaintext">=======</code>,
+                  <code class="language-plaintext"
+                    >&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code
+                  >).
+                </li>
+                <li>
+                  <strong>Resolve the Code:</strong> Manually edit the files to keep the correct code and remove the markers.
+                </li>
+                <li>
+                  <strong>Save the Files:</strong>.
+                </li>
+                <li>
+                  <strong>Mark as Resolved:</strong> Run standard Git commands to stage the resolved files:
+                </li>
+              </ol>
+              <pre><code>git add &lt;resolved-file&gt;</code></pre>
+              <hr/>
+              <h2>Resuming the Workflow</h2>
+              <p>
+                Once all conflicts are resolved and staged, you can simply run <code>gitv go</code> again.
+              </p>
+              <p>
+                Because of Gitv's <strong>Crash Recovery</strong> and idempotency architecture, it will detect that the conflict is resolved, recognize the interrupted rebase/merge, and safely resume the remainder of the original workflow.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

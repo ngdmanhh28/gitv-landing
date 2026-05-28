@@ -479,3 +479,9 @@ h1 {
 .docs-sidebar::-webkit-scrollbar-thumb:hover {
   background: #D1D1D1; 
 }
+
+footer {
+  text-align: center;       
+  padding-top: 1rem;        
+  padding-bottom: 1rem; 
+}

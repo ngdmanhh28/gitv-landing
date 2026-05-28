@@ -1,4 +1,4 @@
-# Landing website for [Gitv](https://github.com/V-Bach/bettergit)
+# Landing website for [Gitv (bettergit)](https://github.com/V-Bach/bettergit)
 A lightweight, high-performance documentation system built for clean, distraction-free reading. It features dynamic content loading, smart sidebar navigation, and a seamless user experience.
 
 # Key Features
